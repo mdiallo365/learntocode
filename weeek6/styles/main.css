@@ -1,0 +1,51 @@
+body { 
+    background: #999999; 
+    color: silver; 
+    font-family: sans-serif;
+}
+
+#list{
+    background-color: white;
+    color: black;
+    width: 100%;
+}
+
+#list th{
+    color: white;
+    background-color: black;
+}
+
+select, table, button, img {
+    margin: 1rem
+}
+
+.thumb{
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain; /* letterbox */
+    /* object-fit: cover;   cropped */
+}
+
+.gigantic{
+    width: 75vw;
+    height: 75vh;
+    object-fit: contain;
+}
+
+.dialog{
+    width: 98vw;
+    height: 98vh;
+    border: 1px solid black;
+    position: fixed;
+    top: 1vh;
+    left: 1vw;
+    background-color: #000000ee;
+    box-shadow: 1vw 1vh 3vh 3vw #00000088;
+}
+.dialog.hidden{
+    display: none;
+}
+.title{
+    background-color: black;
+    text-align: center;
+}
