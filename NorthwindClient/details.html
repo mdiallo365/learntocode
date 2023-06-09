@@ -1,0 +1,43 @@
+<head>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <nav>
+        <a href="search.html"> Product Search </a>
+    </nav>
+    <h1>Product Details</h1>
+</body>
+<script>
+    // d = {
+    //     "productId": "40",
+    //     "productName": "Boston Crab Meat",
+    //     "unitPrice": "18.4000",
+    //     "unitsInStock": "123",
+    //     "categoryId": 8,
+    //     "supplier": "New England Seafood Cannery",
+    //     "discontinued": "false"
+    // }
+
+
+    const pairs = window.location.search.split("&");
+    const id = pairs[0].split("=")[1];
+    const category_name = pairs[1].split("=")[1];
+
+    async function getDetails(id) {
+        const response = await fetch("http://localhost:8081/api/products/" + id);
+        const data = await response.json();
+        document.body.innerHTML += `
+            <h2> Product Name: ${data.productName} </h2>
+            Unit Price: ${Number(data.unitPrice).toFixed(2)} <br>
+            Units In Stock: ${data.unitsInStock} <br>
+            Supplier: ${data.supplier} <br>
+            Discontinued: ${data.discontinued ? "Yes":"No"} <br>
+            Product ID: ${data.productId} <br>
+            Category Name: ${category_name} <br>
+        `;
+    }
+
+    getDetails(id);
+
+</script>

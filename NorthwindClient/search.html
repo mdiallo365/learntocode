@@ -1,0 +1,60 @@
+<head>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html"> Home </a>
+    </nav>
+    <h1>Product Search</h1>
+
+    <div id="category_target"></div>
+    <hr>
+    <div id="product_target"></div>
+</body>
+<script>
+    function onClickCategory(event){
+        window.category_name = event.target.innerHTML; //remember in global
+        getProducts(event.target.dataset.id);
+    }
+
+    function onClickProduct(event){
+        window.location = "details.html"+
+        "?product_id=" + event.target.dataset.id +
+        "&category_name=" + window.category_name;
+    }
+
+    function displayCategory(item){
+        const element = document.createElement("button");
+        element.innerHTML = item.name;
+        
+        // element.setAttribute("data-id", item.categoryId);
+        element.dataset.id = item.categoryId; // same as above
+
+        element.addEventListener("click", onClickCategory)
+        category_target.appendChild(element);
+    }
+
+    function displayProduct(item){
+        const element = document.createElement("button");
+        element.innerHTML = item.productName;
+        element.dataset.id = item.productId;
+        element.addEventListener("click", onClickProduct)
+        product_target.appendChild(element);
+    }
+
+    async function getProducts(category_id){
+        product_target.innerHTML = "";
+        const response = await fetch("http://127.0.0.1:8081/api/categories/" + category_id);
+        const data = await response.json(); //like JSON.parse()
+        data.forEach(displayProduct);
+    }
+
+    async function getCategories(){
+        const response = await fetch("http://127.0.0.1:8081/api/categories");
+        const data = await response.json(); //like JSON.parse()
+        data.forEach(displayCategory);
+    }
+
+    getCategories();
+
+</script>
